@@ -7,7 +7,7 @@ require("dotenv").config();
 app.use(express.json());
 
 app.post('/', function(req, res){
-    //console.log(req.body);
+    //Load New FormData to send
     var pack=req.body;
     let data = new FormData();
     data.append('key', process.env.API_KEY);
@@ -15,12 +15,13 @@ app.post('/', function(req, res){
     data.append('sender', process.env.SENDER);
     data.append('title' , process.env.TITLE);
     data.append('msg_type' , 'LMS');
-    if(pack.test){
+    if(pack.test){ //Check if test checkbox is TRUE
         data.append('testmode_yn', 'Y');
     }
     data.append('receiver', pack.receiver);
     data.append('msg', pack.msg);
     
+    //If time is between 23:00~7:00, Set reservation
     let date_ob = new Date();
     let hour = date_ob.getHours();
     if(hour > 22){
@@ -51,6 +52,7 @@ app.post('/', function(req, res){
       };
       axios.request(config)
       .then((response) => {
+        //Print message and return to Apps Script
         console.log(pack.receiver+" "+response.data.message);
         let answer = {
             message : response.data.message
@@ -61,4 +63,4 @@ app.post('/', function(req, res){
         console.log(error);
       });
 });
-app.listen(process.env.portNum, () => console.log("listening on port "+ portNum +"..."));
+app.listen(process.env.portNum, () => console.log("listening on port "+  process.env.portNum +"..."));

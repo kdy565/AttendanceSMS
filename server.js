@@ -2,18 +2,18 @@ const express = require("express");
 const axios = require('axios');
 const FormData = require('form-data');
 const app = express();
+require("dotenv").config();
 
 app.use(express.json());
 
 app.post('/', function(req, res){
     //console.log(req.body);
     var pack=req.body;
-    
     let data = new FormData();
-    data.append('key', API_KEY);
-    data.append('userid', USER_ID);
-    data.append('sender', SENDER);
-    data.append('title' , TITLE);
+    data.append('key', process.env.API_KEY);
+    data.append('userid', process.env.USER_ID);
+    data.append('sender', process.env.SENDER);
+    data.append('title' , process.env.TITLE);
     data.append('msg_type' , 'LMS');
     if(pack.test){
         data.append('testmode_yn', 'Y');
@@ -61,4 +61,4 @@ app.post('/', function(req, res){
         console.log(error);
       });
 });
-app.listen(portNum, () => console.log("listening on port "+ portNum +"..."));
+app.listen(process.env.portNum, () => console.log("listening on port "+ portNum +"..."));

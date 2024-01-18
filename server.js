@@ -53,7 +53,9 @@ app.post('/', function(req, res){
       axios.request(config)
       .then((response) => {
         //Print message and return to Apps Script
-        console.log(pack.receiver+" "+response.data.message);
+        let date = ("0" + date_ob.getDate()).slice(-2);
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+        console.log("["+month+"/"+date+" "+hour+":"+date_ob.getMinutes()+"] "+pack.receiver+" "+response.data.message);
         let answer = {
             message : response.data.message
         }

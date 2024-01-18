@@ -55,7 +55,7 @@ app.post('/', function(req, res){
         //Print message and return to Apps Script
         let date = ("0" + date_ob.getDate()).slice(-2);
         let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-        console.log("["+month+"/"+date+" "+("0" + date_ob.getHours()).slice(-2);+":"+("0" + date_ob.getMinutes()).slice(-2);+"]:"+pack.receiver+" "+response.data.message);
+        console.log("["+month+"/"+date+" "+("0" + date_ob.getHours()).slice(-2)+":"+("0" + date_ob.getMinutes()).slice(-2)+"]:"+pack.receiver+" "+response.data.message);
         let answer = {
             message : response.data.message
         }

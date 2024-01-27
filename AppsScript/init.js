@@ -7,6 +7,8 @@ function start(){
   processSpreadsheet();
 };
 
-function whatis(){
-  SpreadsheetApp.openById(sheetID).getSheetByName('SMS').getRange(41,1).setValue(SpreadsheetApp.openById(sheetID).getActiveSheet().getCurrentCell().getValue());
+function onEdit(e) {
+  var sheet = e.range.getSheet();
+  var editedRow = e.range.getRow();
+  calculate(sheet.getName(), editedRow);
 }

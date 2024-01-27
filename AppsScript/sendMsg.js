@@ -47,11 +47,13 @@ function prepareSMS(student){
     }
   }
 }
+
 function sendSMS(name,text,parentHP){
   var sms = {
         'receiver': parentHP,
         'msg': text,
-        'test': isTest
+        'test': isTest,
+        'name' : name
   };
   var options = {
     'method': 'post',

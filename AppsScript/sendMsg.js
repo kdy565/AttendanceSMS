@@ -1,7 +1,9 @@
-var data = SpreadsheetApp.openById(sheetID).getSheetByName('SMS').getDataRange().getValues();
-var cel = SpreadsheetApp.openById(sheetID).getSheetByName('SMS').getRange(4,6);
-var sample = SpreadsheetApp.openById(sheetID).getSheetByName('SMS').getRange(6,8);
-var isTest = (SpreadsheetApp.openById(sheetID).getSheetByName('SMS').getRange(4,9).getDisplayValue() == 'TRUE');
+var SMS_sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('SMS');
+
+var data = SMS_sheet.getDataRange().getValues();
+var cel = SMS_sheet.getRange(4,6);
+var sample = SMS_sheet.getRange(6,8);
+var isTest = (SMS_sheet.getRange(4,9).getDisplayValue() == 'TRUE');
 var attendedOrigin = data[2][1];
 var unattendOrigin = data[16][1];
 var progress = data[0][3];

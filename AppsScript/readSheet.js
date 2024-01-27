@@ -1,5 +1,5 @@
 function processSpreadsheet() {
-  var spreadsheet = SpreadsheetApp.openById(sheetID);
+  var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
   var sheet = spreadsheet.getSheetByName('SMS');
   var data = sheet.getDataRange().getValues();
   var sheetId = data[0][1];
@@ -38,7 +38,7 @@ function processSpreadsheet() {
 
 //row = 6+3*week
 function calculate(sheetName,row){
-  var spreadsheet = SpreadsheetApp.openById(sheetID);
+  var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
   var sheet = spreadsheet.getSheetByName(sheetName);
   var data = sheet.getDataRange().getValues();
   //평균 구하기

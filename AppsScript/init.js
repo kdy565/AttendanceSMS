@@ -7,8 +7,9 @@ function start(){
   processSpreadsheet();
 };
 
-function onEdit(e) {
+function onEdit2(e) {
   var sheet = e.range.getSheet();
-  var editedRow = e.range.getRow();
-  calculate(sheet.getName(), editedRow);
+  var editedRow = e.range.getColumn();
+  var sheetname = sheet.getName();
+  if(editedRow > 6 && editedRow%3 == 0 && sheetname != 'SMS' && sheetname != '성적처리' && sheetname != '매뉴얼') calculate(sheetname, editedRow);
 }

@@ -6,9 +6,8 @@ var sample = SMS_sheet.getRange(6,8);
 var isTest = (SMS_sheet.getRange(4,9).getDisplayValue() == 'TRUE');
 var attendedOrigin = data[2][1];
 var unattendOrigin = data[16][1];
-var progress = data[0][3];
 
-function prepareSMS(student){
+function writeMSG(student){
   if(student.attendance == "o"){
     var attendedText = attendedOrigin;
     if(student.grad==2){
@@ -26,16 +25,12 @@ function prepareSMS(student){
     attendedText = attendedText.replace("@week",student.week);
     attendedText = attendedText.replace("@date",student.date);
     attendedText = attendedText.replace("@thirty",student.thirty);
-    attendedText = attendedText.replace("@progress",progress);
+    attendedText = attendedText.replace("@progress",student.progress);
     attendedText = attendedText.replace("@testNum",student.week-1);
     attendedText = attendedText.replace("@testScore",student.testScore);
     attendedText = attendedText.replace("@HighScore",student.highScore);
     attendedText = attendedText.replace("@average",student.averageScore);
     attendedText = attendedText.replace("@ytlink",student.link);
-    sendSMS(student.studentName,attendedText,student.parentHP);
-    if(student.studentHP != ""){
-      sendSMS(student.studentName,attendedText,student.studentHP);
-    }
   }
   if(student.attendance == '동'){
     var attendedText = unattendOrigin;
@@ -43,11 +38,15 @@ function prepareSMS(student){
     attendedText = attendedText.replace("@date",student.date);
     attendedText = attendedText.replace("@progress",progress);
     attendedText = attendedText.replace("@ytlink",student.link);
-    sendSMS(student.studentName,attendedText,student.parentHP);
-    if(student.studentHP != ""){
-      sendSMS(student.studentName,attendedText,student.studentHP);
-    }
   }
+  return attendedText;
+}
+
+function prepareSMS(student){
+  var attendedText = writeMSG(student);
+  sendSMS(student.studentName,attendedText,student.parentHP);
+  if(student.studentHP != "") sendSMS(student.studentName,attendedText,student.studentHP);
+  return attendedText;
 }
 
 function sendSMS(name,text,parentHP){

@@ -30,7 +30,7 @@ app.post('/', function(req, res){
       let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
       let year = date_ob.getFullYear();
       data.append('rdate' ,year +  month +  date);
-      data.append('rtime' ,"0700");
+      data.append('rtime' ,"0900");
       date_ob.setDate(date_ob.getDate()-1);
     }
     else if(hour < 7){
@@ -38,7 +38,7 @@ app.post('/', function(req, res){
       let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
       let year = date_ob.getFullYear();
       data.append('rdate' , year +  month +  date);
-      data.append('rtime' ,"0700");
+      data.append('rtime' ,"0900");
     }
 
     let config = {

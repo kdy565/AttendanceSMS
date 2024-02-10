@@ -8,7 +8,7 @@ function onEdit3(e) {
     var editedCol = e.range.getColumn();
     
     // Check if the edited cell is B32
-    if (editedRow == 32 && editedCol == 2) {
+    if ((editedRow == 32 && editedCol == 2)||(editedRow == 31 && editedCol == 2)||(editedRow == 31 && editedCol == 4)) {
       var targetRow = sheet.getRange("A35");
       targetRow.setValue(processSearch());
     }

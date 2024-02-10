@@ -1,5 +1,29 @@
-function processSpreadsheet() {
-  var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+function processSpreadsheet1() {//과제&테스트 전송
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName('SMS');
+  var data = sheet.getDataRange().getValues();
+  var sheetId = data[0][1];
+  var week = data[1][1];
+  var sheet = spreadsheet.getSheetByName(sheetId);
+  var data = sheet.getDataRange().getValues();
+  var date = sheet.getRange(1,4+3*week).getDisplayValue();
+  var link = data[2][3+3*week]; //복습영상 링크
+  
+  console.log(sheetId+": "+week+"주차 문자 발송");
+  
+  for (var i = 4; i < data.length; i++) {
+    var student=packStudent(sheet.getRange(i+1,4+3*week));
+    if (student.studentName!=""){ //이름 존재하는 칸
+      if (student.attendance == "o"){ //출석했음
+        var text = prepareSMS(student);
+        sheet.getRange(i+1,4+3*week).setNote("["+Utilities.formatDate(new Date(), "GMT+9", "MM/dd HH:mm")+"]\n"+text);
+      }
+    }
+  }
+}
+
+function processSpreadsheet2() {//영상 전송
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName('SMS');
   var data = sheet.getDataRange().getValues();
   var sheetId = data[0][1];
@@ -15,8 +39,8 @@ function processSpreadsheet() {
     var student=packStudent(sheet.getRange(i+1,4+3*week));
     if (student.studentName!=""){ //이름 존재하는 칸
       if (student.attendance == "o"||student.attendance == "동"){ //출석했음
-        var text = prepareSMS(student);
-        sheet.getRange(i+1,4+3*week).setNote("["+Utilities.formatDate(new Date(), "GMT+9", "MM/dd HH:mm")+"]\n"+text);
+        student.attendance = "동";
+        prepareSMS(student);
       }
     }
   }
@@ -47,7 +71,7 @@ function packStudent(e){
 
 //row = 6+3*week
 function calculate(sheetName,row){
-  var spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName(sheetName);
   var data = sheet.getDataRange().getValues();
   //평균 구하기

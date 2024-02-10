@@ -1,4 +1,4 @@
-var SMS_sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('SMS');
+var SMS_sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('SMS');
 
 var data = SMS_sheet.getDataRange().getValues();
 var cel = SMS_sheet.getRange(4,6);
@@ -30,13 +30,11 @@ function writeMSG(student){
     attendedText = attendedText.replace("@testScore",student.testScore);
     attendedText = attendedText.replace("@HighScore",student.highScore);
     attendedText = attendedText.replace("@average",student.averageScore);
-    attendedText = attendedText.replace("@ytlink",student.link);
   }
   if(student.attendance == '동'){
     var attendedText = unattendOrigin;
     attendedText = attendedText.replace("@week",student.week);
     attendedText = attendedText.replace("@date",student.date);
-    attendedText = attendedText.replace("@progress",progress);
     attendedText = attendedText.replace("@ytlink",student.link);
   }
   return attendedText;
@@ -62,9 +60,7 @@ function sendSMS(name,text,parentHP){
     'payload': JSON.stringify(sms)
   };
   var response = JSON.parse(UrlFetchApp.fetch(send_url, options).getContentText());
-  if(sample.getValue()==""){
-      sample.setValue(text);
-    }
+  sample.setValue(text);
   if(response.message == "success" ){
     //console.log(name+" ("+parentHP+") 발송 성공");
     cel.setValue(cel.getDisplayValue()+name+" ("+parentHP+") 발송 성공 \n");
@@ -78,4 +74,9 @@ function sendSMS(name,text,parentHP){
     cel.setValue(cel.getDisplayValue()+name+" ("+parentHP+") 전송 실패: "+response.message+" \n");
     console.log(name+" 전송 실패: "+response.message);
   }
+}
+
+function prepLog(){
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('SMS').getRange(4,6).setValue(""); //로그 초기화
+  sample.setValue("");
 }

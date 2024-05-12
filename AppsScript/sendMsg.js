@@ -22,11 +22,10 @@ function writeMSG(student){
     attendedText = attendedText.replace('@name',student.studentName);
     attendedText = attendedText.replace('@name',student.studentName);
     attendedText = attendedText.replace("@week",student.week);
-    attendedText = attendedText.replace("@week",student.week);
+    attendedText = attendedText.replace("@hw",student.week+14);
     attendedText = attendedText.replace("@date",student.date);
     attendedText = attendedText.replace("@thirty",student.thirty);
-    attendedText = attendedText.replace("@progress",student.progress);
-    attendedText = attendedText.replace("@testNum",student.week-1);
+    attendedText = attendedText.replace("@testNum",student.week);
     attendedText = attendedText.replace("@testScore",student.testScore);
     attendedText = attendedText.replace("@HighScore",student.highScore);
     attendedText = attendedText.replace("@average",student.averageScore);

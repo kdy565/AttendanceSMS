@@ -6,7 +6,8 @@ function onEdit3(e) {
     var sheet = e.range.getSheet();
     var editedRow = e.range.getRow();
     var editedCol = e.range.getColumn();
-    
+    var sheetname = sheet.getName();
+    if(editedRow > 6 && editedRow%3 == 0 && sheetname != 'SMS' && sheetname != '성적처리' && sheetname != '매뉴얼') calculate(sheetname, editedRow);
     // Check if the edited cell is B32
     if ((editedRow == 32 && editedCol == 2)||(editedRow == 31 && editedCol == 2)||(editedRow == 31 && editedCol == 4)) {
       var targetRow = sheet.getRange("A35");
@@ -40,14 +41,6 @@ function findRow(range, searchValue) {
   }
   console.log("FAIL TO SEARCH");
   return -1; // Return -1 if not found
-}
-
-// Update average
-function onEdit2(e) {
-  var sheet = e.range.getSheet();
-  var editedRow = e.range.getColumn();
-  var sheetname = sheet.getName();
-  if(editedRow > 6 && editedRow%3 == 0 && sheetname != 'SMS' && sheetname != '성적처리' && sheetname != '매뉴얼') calculate(sheetname, editedRow);
 }
 
 function addMenu(){

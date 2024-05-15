@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문자 발송</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      color: #5a76d4;
+    }
+
+    label, input, select, button {
+      margin-bottom: 10px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box; /* Includes padding and border in element's width/height */
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      transform: translateX(-50%);
+    }
+
+    #closebtn {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+    }
+
+    #closebtn:hover {
+      color: red;
+    }
+
+    #loaderOne, #loaderTwo {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>문자 발송</h1>
+  <label for="numberInput">주차:</label>
+  <input type="number" id="numberInput" placeholder="수업 주차" min="1">
+  <br><br>
+  <label for="dropdown">출석부:</label>
+  <select id="dropdown"></select>
+  <br><br>
+  <button id="buttonOne" onclick="runButtonOne()">과제&테스트</button>
+  <span id="loaderOne" style="display:none;">🔄</span>
+  <button id="buttonTwo" onclick="runButtonTwo()">복습&동보</button>
+  <span id="loaderTwo" style="display:none;">🔄</span>
+  <div id="toast">
+    <span id="closebtn" onclick="closeToast()">&times;</span>
+    <span id="toastText">Message will go here</span>
+  </div>
+  <script>
+    window.onload = function() {
+      google.script.run.withSuccessHandler(buildDropdown).getDropdownOptionsFromCell();
+    };
+
+    function buildDropdown(options) {
+      const select = document.getElementById('dropdown');
+      options.forEach(option => {
+        const el = document.createElement("option");
+        el.textContent = option;
+        el.value = option;
+        select.appendChild(el);
+      });
+    }
+
+    function runButtonOne() {
+      const button = document.getElementById('buttonOne');
+      const loader = document.getElementById('loaderOne');
+      loader.style.display = 'inline';
+
+      const dropdownValue = document.getElementById('dropdown').value;
+      const numberValue = document.getElementById('numberInput').value;
+
+      const data = { dropdownValue, numberValue };
+      google.script.run.withSuccessHandler(response => {
+        showToast(response);
+        loader.style.display = 'none';
+      }).buttonOneAction(data);
+    }
+
+    function runButtonTwo() {
+      const button = document.getElementById('buttonTwo');
+      const loader = document.getElementById('loaderTwo');
+      loader.style.display = 'inline';
+
+      const dropdownValue = document.getElementById('dropdown').value;
+      const numberValue = document.getElementById('numberInput').value;
+
+      const data = { dropdownValue, numberValue };
+      google.script.run.withSuccessHandler(response => {
+        showToast(response);
+        loader.style.display = 'none';
+      }).buttonTwoAction(data);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      const toastText = document.getElementById("toastText");
+      toastText.textContent = message;
+      toast.style.visibility = 'visible';
+    }
+
+    function closeToast() {
+      const toast = document.getElementById("toast");
+      toast.style.visibility = 'hidden';
+    }
+  </script>
+</body>
+</html>

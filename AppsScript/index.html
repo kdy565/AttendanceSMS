@@ -1,4 +1,4 @@
-Put your HTML text here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -42,12 +42,12 @@ Put your HTML text here<!DOCTYPE html>
       padding: 8px 16px;
       cursor: pointer;
       border-radius: 4px;
-      flex-grow: 1; /* Ensures buttons take up equal space */
-      margin-right: 10px; /* Adds space between buttons */
+      flex-grow: 1;
+      margin-right: 10px;
     }
 
     button:last-child {
-      margin-right: 0; /* Removes margin from the last button */
+      margin-right: 0;
     }
 
     button:hover {
@@ -84,6 +84,31 @@ Put your HTML text here<!DOCTYPE html>
 
     .loader {
       display: inline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .button-container {
+        flex-direction: column;
+      }
+
+      button {
+        margin-bottom: 10px;
+        margin-right: 0; /* Remove margin right in mobile view */
+        padding: 12px 20px; /* Larger tap area */
+      }
+
+      button:last-child {
+        margin-bottom: 0; /* Last button does not need bottom margin */
+      }
+
+      input, select {
+        font-size: 16px; /* Larger font size for better readability on small devices */
+      }
     }
   </style>
 </head>
@@ -139,7 +164,7 @@ Put your HTML text here<!DOCTYPE html>
       loader.style.display = 'inline';
 
       const dropdownValue = document.getElementById('dropdown').value;
-      const numberValue = document.getElementById('numberInput').value;
+      the numberValue = document.getElementById('numberInput').value;
 
       const data = { dropdownValue, numberValue };
       google.script.run.withSuccessHandler(response => {

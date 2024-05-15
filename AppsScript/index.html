@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Put your HTML text here<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,23 +17,37 @@
       color: #5a76d4;
     }
 
-    label, input, select, button {
+    label, input, select {
       margin-bottom: 10px;
     }
 
-    input, select, button {
+    input, select {
       width: 100%;
       padding: 8px;
       border: 2px solid #ddd;
       border-radius: 4px;
-      box-sizing: border-box; /* Includes padding and border in element's width/height */
+      box-sizing: border-box;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     button {
       background-color: #4CAF50;
       color: white;
       border: none;
+      padding: 8px 16px;
       cursor: pointer;
+      border-radius: 4px;
+      flex-grow: 1; /* Ensures buttons take up equal space */
+      margin-right: 10px; /* Adds space between buttons */
+    }
+
+    button:last-child {
+      margin-right: 0; /* Removes margin from the last button */
     }
 
     button:hover {
@@ -68,8 +82,8 @@
       color: red;
     }
 
-    #loaderOne, #loaderTwo {
-      margin-left: 10px;
+    .loader {
+      display: inline;
     }
   </style>
 </head>
@@ -81,10 +95,12 @@
   <label for="dropdown">출석부:</label>
   <select id="dropdown"></select>
   <br><br>
-  <button id="buttonOne" onclick="runButtonOne()">과제&테스트</button>
-  <span id="loaderOne" style="display:none;">🔄</span>
-  <button id="buttonTwo" onclick="runButtonTwo()">복습&동보</button>
-  <span id="loaderTwo" style="display:none;">🔄</span>
+  <div class="button-container">
+    <button id="buttonOne" onclick="runButtonOne()">과제&테스트</button>
+    <span id="loaderOne" class="loader" style="display:none;">🔄</span>
+    <button id="buttonTwo" onclick="runButtonTwo()">복습&동보</button>
+    <span id="loaderTwo" class="loader" style="display:none;">🔄</span>
+  </div>
   <div id="toast">
     <span id="closebtn" onclick="closeToast()">&times;</span>
     <span id="toastText">Message will go here</span>
@@ -105,7 +121,6 @@
     }
 
     function runButtonOne() {
-      const button = document.getElementById('buttonOne');
       const loader = document.getElementById('loaderOne');
       loader.style.display = 'inline';
 
@@ -120,7 +135,6 @@
     }
 
     function runButtonTwo() {
-      const button = document.getElementById('buttonTwo');
       const loader = document.getElementById('loaderTwo');
       loader.style.display = 'inline';
 

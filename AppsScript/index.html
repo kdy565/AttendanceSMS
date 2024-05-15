@@ -164,7 +164,7 @@
       loader.style.display = 'inline';
 
       const dropdownValue = document.getElementById('dropdown').value;
-      the numberValue = document.getElementById('numberInput').value;
+      const numberValue = document.getElementById('numberInput').value;
 
       const data = { dropdownValue, numberValue };
       google.script.run.withSuccessHandler(response => {

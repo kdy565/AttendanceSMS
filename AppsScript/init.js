@@ -3,12 +3,30 @@ const SHEET_ID = SHEET_ID;
 
 function sendTests(){
   prepLog();
-  processSpreadsheet1();
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName('SMS');
+  var data = sheet.getDataRange().getValues();
+  var sheetId = data[0][1];
+  var week = data[1][1];
+  var data = {
+        dropdownValue: sheetId,
+        numberValue: week
+      };
+  processSpreadsheet1(data);
 }
 
 function sendVideos(){
   prepLog();
-  processSpreadsheet2();
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName('SMS');
+  var data = sheet.getDataRange().getValues();
+  var sheetId = data[0][1];
+  var week = data[1][1];
+  var data = {
+        dropdownValue: sheetId,
+        numberValue: week
+      };
+  processSpreadsheet2(data);
 }
 
 function sendSearched(){

@@ -1,13 +1,9 @@
-function processSpreadsheet1() {//과제&테스트 전송
+function processSpreadsheet1(dat) {//과제&테스트 전송
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('SMS');
-  var data = sheet.getDataRange().getValues();
-  var sheetId = data[0][1];
-  var week = data[1][1];
+  var sheetId = dat.dropdownValue;
+  var week = dat.numberValue;
   var sheet = spreadsheet.getSheetByName(sheetId);
   var data = sheet.getDataRange().getValues();
-  var date = sheet.getRange(1,4+3*week).getDisplayValue();
-  var link = data[2][3+3*week]; //복습영상 링크
   
   console.log(sheetId+": "+week+"주차 문자 발송");
   
@@ -20,18 +16,15 @@ function processSpreadsheet1() {//과제&테스트 전송
       }
     }
   }
+  return "sent";
 }
 
-function processSpreadsheet2() {//영상 전송
+function processSpreadsheet2(dat) {//영상 전송
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = spreadsheet.getSheetByName('SMS');
-  var data = sheet.getDataRange().getValues();
-  var sheetId = data[0][1];
-  var week = data[1][1];
+  var sheetId = dat.dropdownValue;
+  var week = dat.numberValue;
   var sheet = spreadsheet.getSheetByName(sheetId);
   var data = sheet.getDataRange().getValues();
-  var date = sheet.getRange(1,4+3*week).getDisplayValue();
-  var link = data[2][3+3*week]; //복습영상 링크
   
   console.log(sheetId+": "+week+"주차 문자 발송");
   
@@ -44,6 +37,7 @@ function processSpreadsheet2() {//영상 전송
       }
     }
   }
+  return "sent";
 }
 
 function packStudent(e){
